@@ -15,29 +15,38 @@ You first need to establish a WinSCP session using Connect-WinScpFTPSession. Thi
 **Connect-WinSCPFTPSession Examples** 
 
 ```powershell
+# SFTP Credential Connection
 PS> Connect-WinSCPFTPSession -Protocol Sftp -Server 127.0.0.1 -Credential (Get-Credential) -LogSession
 # This example logs and uses an FTP over SSH (SFTP) connection with 127.0.0.1 using a credential object. There is a 15 second timeout to connect to the destination server and any new host keys are automatically accepted
 
+# SFTP Key Connection
 PS> Connect-WinSCPFTPSession -Protocol Sftp -Server 127.0.0.1 -KeyUserName admin -SshPrivateKeyPassPhrase (ConvertTo-SecureString -String "Keypassword123!" -AsPlainText -Force) -SshPrivateKeyPath "C:\Users\admin\.ssh\id_rsa.ppk" -Timeout 15 -HostKeyPolicy AcceptNew -WinScpDllPath "C:\ProgramData\WinSCP\WinSCPnet.dll"
 # This example uses an FTP over SSH (SFTP) connection with 127.0.0.1 using a password protected SSH key. There is a 15 second timeout to connect to the destination server and any new host keys are automatically accepted
 
+# FTPS Implicit Connection
 PS> Connect-WinSCPFTPSession -Protocol Ftp -FtpEncryption "Implicit" -Server 127.0.0.1 -Port 990 -HostKeyPolicy Check -FTPMode Passive -HostKeyPolicy Check -LogSession -LogPath "$env:TEMP\Logs\ftp-session.log"
 # This example use a passive implicit FTP over SSL (FTPS) connection. There is a 15 second timeout to connect to the destination server and any new host keys will prompt for confirmation. This also logs the session connections to a custom log location
 
+# FTPS Explicit Connection
 PS> Connect-WinSCPFTPSession -Protocol Ftp -FtpEncryption "Explicit" -Server 127.0.0.1 -Port 21 -Credential (Get-Credential) -FTPMode Active -Timeout 15 -HostKeyPolicy GiveUpSecurityAndAcceptAny
 # This example use an acive explicit FTP over SSL (FTPS) connection. There is a 15 second timeout to connect to the destination server and any new host keys will be ignored
 ```
+<br>
 
 **DisConnect-WinSCPFTPSession Examples**
 ```powershell
 Disconnect-WinSCPFTPSession
 ```
 
-**DisConnect-WinSCPFTPSession Examples**
+<br>
+
+**Disconnect-WinSCPFTPSession Examples**
 ```powershell
 PS> Disconnect-WinSCPFTPSession
 # This exmaple disconnects a WinSCP FTP Session using the $Global:WinSCPFTPSession variable which is created by Connect-WinSCPFTPSession
 ```
+
+<br>
 
 **Get-WinSCPChildItem Examples**
 ```powershell
@@ -49,6 +58,8 @@ PS> Get-WinSCPChildItem -RemotePath "Test/" -Recurse
 # THIS DOES NOT WORK YET
 ```
 
+<br>
+
 **Invoke-WinSCPDownload Examples**
 ```powershell
 PS> Invoke-WinSCPDownload -LocalPath "$env:USERPROFILE\Downloads" -RemotePath @("Test/","Dev/")
@@ -57,6 +68,8 @@ PS> Invoke-WinSCPDownload -LocalPath "$env:USERPROFILE\Downloads" -RemotePath @(
 PS> Invoke-WinSCPDownload -LocalPath "$env:USERPROFILE\Downloads" -RemotePath @("Test/","Dev/") -EnumerateDirectory
 # This example downloads the contents of Dev/ and Test/ on the FTP server to $env:USERPROFILE\Downloads on the local machine and enumerates the contents of the directories
 ```
+
+<br>
 
 **Invoke-WinSCPUpload Examples**
 ```powershell
