@@ -182,7 +182,7 @@ System.String[]
             ParameterSetName="Key",
             Mandatory=$False
         )]  # End Parameter
-        [String]$SshHostKeyFingerprint = 'ssh-rsa 2048 6Rr0BuqQo1j+sFzR3rm45lAmBAGsZb69tcLGIZf4aP8',
+        [String]$SshHostKeyFingerprint, # EXAMPLE: ssh-rsa 2048 fffffffffffffffffffffffffffffffffffffffffff'
 
         [Parameter(
             Mandatory=$False
