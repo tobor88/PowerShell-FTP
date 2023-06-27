@@ -108,8 +108,12 @@ BEGIN {
 
     ForEach ($TResult in $TransferResult) {
 
-        $Output += $TResult.Transfers.FileName
-        Write-Verbose -Message "[v] $(Get-Date -Format 'MM-dd-yyyy hh:mm:ss') Download of $($TResult.Transfers.FileName) succeeded"
+        If ($TResult.Transfers.FileName) {
+
+            $Output += $TResult.Transfers.FileName
+            Write-Verbose -Message "[v] $(Get-Date -Format 'MM-dd-yyyy hh:mm:ss') Download of $($TResult.Transfers.FileName) succeeded"
+
+        }  # End If
 
     }  # End ForEach
 
