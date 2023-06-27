@@ -253,10 +253,13 @@ System.String[]
         [Parameter(
             Mandatory=$False
         )]  # End Parameter
-        [Switch]$IgnoreReminder,
+        [Switch]$IgnoreReminder
     )  # End param
 
 BEGIN {
+
+    Write-Verbose -Message "[v] $(Get-Date -Format 'MM-dd-yyyy hh:mm:ss') Ensuring the utilization TLSv1.2"
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
 
     Write-Verbose -Message "[v] $(Get-Date -Format 'MM-dd-yyyy hh:mm:ss') Loading the WinSCP assembly from $WinScpDllPath"
     If (!(Test-Path -Path $WinScpDllPath.FullName)) { Throw "[x] $(Get-Date -Format 'MM-dd-yyyy hh:mm:ss') File not foudn: $WinScpDllPath" }
