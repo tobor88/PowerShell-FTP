@@ -135,6 +135,7 @@ None
             $Credential = [System.Management.Automation.PSCredential]::Empty
         )  # End param
 
+    
     $FileName = $Destination.Split('\')[-1]
     New-Item -Path $Destination.Replace("\$($FileName)", "") -ItemType Directory -Force -Verbose:$False -WhatIf:$WhatIfPreference -ErrorAction SilentlyContinue | Out-Null
     
@@ -163,8 +164,12 @@ None
 
     Try {
 
-        $DownloadResponse = $DownloadRequest.GetResponse()
-        $SourceStream = $DownloadResponse.GetResponseStream()
+        If ($PSCmdlet.ShouldProcess("ShouldProcess?")) {
+
+            $DownloadResponse = $DownloadRequest.GetResponse()
+            $SourceStream = $DownloadResponse.GetResponseStream()
+
+          }  # End If
 
     } Catch {
 
@@ -172,21 +177,30 @@ None
         Write-Error -Message "[x] $(Get-Date -Format 'MM-dd-yyyy hh:mm:ss') $($Error[0].Exception.Message)"
 
     }  # End Try Catch
-    $FileStream = New-Object -TypeName System.IO.FileStream -ArgumentList @($Destination, [System.IO.FileMode]::Create)
-    $ReadBuffer = New-Object -TypeName System.Byte[] -ArgumentList @(1024)
+
+    If ($PSCmdlet.ShouldProcess("ShouldProcess?")) {
+
+        $FileStream = New-Object -TypeName System.IO.FileStream -ArgumentList @($Destination, [IO.FileMode]::Create)
+        $ReadBuffer = New-Object -TypeName System.Byte[] -ArgumentList @(1024)
+
+    }  # End If
 
     Try {
 
-        Do {
+        If ($PSCmdlet.ShouldProcess("ShouldProcess?")) {
 
-            $ReadLength = $SourceStream.Read($ReadBuffer, 0, 1024)
-            $FileStream.Write($ReadBuffer, 0, $ReadLength)
+            Do {
 
-        } While ($ReadLength -ne 0)
+                $ReadLength = $SourceStream.Read($ReadBuffer, 0, 1024)
+                $FileStream.Write($ReadBuffer, 0, $ReadLength)
 
-        $FileStream.Dispose()
-        $SourceStream.Dispose()
-        $DownloadResponse.Dispose()
+            } While ($ReadLength -ne 0)
+
+            $FileStream.Dispose()
+            $SourceStream.Dispose()
+            $DownloadResponse.Dispose()
+
+        }  # End If
 
     } Catch {
 
@@ -195,9 +209,13 @@ None
 
     } Finally {
 
-        If ($FileStream) { $FileStream.Dispose() }
-        If ($SourceStream) { $SourceStream.Dispose() }
-        If ($DownloadResponse) { $DownloadResponse.Dispose() }
+        If ($PSCmdlet.ShouldProcess("ShouldProcess?")) {
+
+            If ($FileStream) { $FileStream.Dispose() }
+            If ($SourceStream) { $SourceStream.Dispose() }
+            If ($DownloadResponse) { $DownloadResponse.Dispose() }
+
+        }  # End If
 
     }  # End Try Catch Finally
 
