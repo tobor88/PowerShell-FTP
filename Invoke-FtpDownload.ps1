@@ -172,7 +172,7 @@ None
         Write-Error -Message "[x] $(Get-Date -Format 'MM-dd-yyyy hh:mm:ss') $($Error[0].Exception.Message)"
 
     }  # End Try Catch
-    $FileStream = New-Object -TypeName System.IO.FileStream -ArgumentList @($Destination, [IO.FileMode]::Create)
+    $FileStream = New-Object -TypeName System.IO.FileStream -ArgumentList @($Destination, [System.IO.FileMode]::Create)
     $ReadBuffer = New-Object -TypeName System.Byte[] -ArgumentList @(1024)
 
     Try {
