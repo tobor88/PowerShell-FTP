@@ -12,6 +12,7 @@ Uinsg WinSCP you first need to establish a WinSCP session using Connect-WinScpFT
 5. Invoke-WinScpUpload *Upload files from a WinSCP FTP Server*
 6. Get-FtpChildItem *Returns a list of files from an FTP server*
 7. Invoke-FtpDownload *Downloads files from an FTP server*
+8. Invoke-FtpUpload *Uploads a file to an FTP server*
 
 ## Examples
 **Connect-WinSCPFTPSession Examples** 
@@ -113,4 +114,18 @@ PS> Invoke-FtpDownload -SourceUri ftp://127.0.0.1:21/test.txt -Destination C:\Te
 
 PS> Invoke-FtpDownload -SourceUri ftp://127.0.0.1:21/test.txt -Destination C:\Temp\test.txt -UsePassive $True -KeepAlive $False -UseSSL $True -IgnoreCertificateValidation $True -Credential (Get-Credential)
 # This example downloads test.txt and saves it in C:\Temp over an FTPES passive connection with credentials that ignores certificate validation errors
+```
+
+<br>
+
+**Invoke-FtpUpload Examples**
+```powershell
+PS> Invoke-FtpUpload -Path C:\Temp\test.txt -Destination "/"
+# This example uploads test.txt and saves it in the FTP root directory using a passive connection without credentials
+
+PS> Invoke-FtpUpload -Path C:\Temp\test.txt -Destination "/" -UsePassive $True -KeepAlive $False -Credential (Get-Credential)
+# This example downloads test.txt and saves it in to the FTP root directory over a passive connection with credentials
+
+PS> Invoke-FtpUpload -Path C:\Temp\test.txt -Destination "/" -UsePassive $True -KeepAlive $False -UseSSL $True -IgnoreCertificateValidation $True -Credential (Get-Credential)
+# This example uploads test.txt and saves it in to the FTP root directory over a passive connection with credentials that ignores certificate validation errors
 ```
