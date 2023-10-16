@@ -10,6 +10,8 @@ Uinsg WinSCP you first need to establish a WinSCP session using Connect-WinScpFT
 3. Get-WinScpChildItem *Enumerate the contents of an FTP servers directory*
 4. Invoke-WinScpDownload *Download files from a WinSCP FTP Server*
 5. Invoke-WinScpUpload *Upload files from a WinSCP FTP Server*
+6. Get-FtpChildItem *Returns a list of files from an FTP server*
+7. Invoke-FtpDownload *Downloads files from an FTP server*
 
 ## Examples
 **Connect-WinSCPFTPSession Examples** 
