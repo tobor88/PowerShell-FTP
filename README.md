@@ -5,14 +5,14 @@ Collection of PowerShell cmdlets that can be used to interact with an FTP server
 Uinsg WinSCP you first need to establish a WinSCP session using Connect-WinScpFTPSession. This takes a little time to complete and makes executing the other commands much faster when you have a few actions you want to take. When you are done you will want to use Disconnect-WinScpFtpSession to close the connection.
 
 # Cmdlet List
-1. Connect-WinScpFtpSession *Connect to a WinSCP FTP session*
-2. Disconnect-WinScpFtpSession *Disconnect your WinSCP FTP Session*
-3. Get-WinScpChildItem *Enumerate the contents of an FTP servers directory*
-4. Invoke-WinScpDownload *Download files from a WinSCP FTP Server*
-5. Invoke-WinScpUpload *Upload files from a WinSCP FTP Server*
-6. Get-FtpChildItem *Returns a list of files from an FTP server*
-7. Invoke-FtpDownload *Downloads files from an FTP server*
-8. Invoke-FtpUpload *Uploads a file to an FTP server*
+1. Connect-WinScpFtpSession *Connect to a WinSCP FTP, FTPS, FTPES, or SFTP session*
+2. Disconnect-WinScpFtpSession *Disconnect your WinSCP FTP, FTPS, FTPES, or SFTP Session*
+3. Get-WinScpChildItem *Enumerate the contents of an FTP, FTPS, FTPES, or SFTP servers directory*
+4. Invoke-WinScpDownload *Download files from a WinSCP FTP, FTPS, FTPES, or SFTP Server*
+5. Invoke-WinScpUpload *Upload files from a WinSCP FTP, FTPS, FTPES, or SFTP Server*
+6. Get-FtpChildItem *Returns a list of files from an FTP, FTPS, or FTPES server*
+7. Invoke-FtpDownload *Downloads files from an FTP, FTPS, or FTPES server*
+8. Invoke-FtpUpload *Uploads a file to an FTP, FTPS, or FTPES server*
 
 ## Examples
 **Connect-WinSCPFTPSession Examples** 
