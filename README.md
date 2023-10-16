@@ -79,3 +79,36 @@ PS> Invoke-WinSCPUpload -Path "C:\Users\Administrator\Documents\importantfile.tx
 PS> Invoke-WinSCPUpload -Path "C:\Users\Administrator\Documents\importantfile.txt","C:\Users\Administrator\Documents\otherfile2.txt" -Destination "C:\SFTP\Uploads" -EnumerateDirectory
 # This example copies the importantfile.txt and otherfile2.txt to the WinSCP destination C:\SFTP\Uploads using passive FTP over SSH (SFTP) and lists the contents of the destination directory. There is a 15 second timeout to connect to the destination server and any new host keys are automatically accepted
 ```
+
+# The below cmdlets do not use the WinSCP dll and can communicate with any FTP, FTPS, or FTPES server
+
+<br>
+
+**Get-FtpChildItem Examples**
+```powershell
+PS> Get-FtpChildItem -FtpServer localhost -SourceDirectory "/" -UseActive $True
+# This example enumerates the files in the FTP root directory over an FTP active ASCII connection wihtout credentials
+
+PS> Get-FtpChildItem -FtpServer localhost -SourceDirectory "/" -UseSSL $True
+# This example enumerates the files in the FTP root directory only over FTPES passive ASCII connection using TLSv1.2 wihtout credentials
+
+PS> Get-FtpChildItem -FtpServer localhost -SourceDirectory "/" -UseSSL $True -UseBinary $False -UsePassive $True -TlsVersion Tls12 -KeepAlive $False
+# This example enumerates the files in the FTP root directory only over FTPES passive ASCII connection using TLSv1.2 wihtout credentials
+
+PS> Get-FtpChildItem -FtpServer localhost -SourceDirectory "/" -UseSSL $True -UseBinary $False -UsePassive $True -TlsVersion Tls12 -KeepAlive $False -IgnoreCertificateValidation $True -Credential (Get-Credential)
+# This example enumerates the files in the FTP root directory only over FTPES passive ASCII connection using TLSv1.2 and ignores certificate validation errors and prompts for FTP credentials
+```
+
+<br>
+
+**Invoke-FtpDownload Examples**
+```powershell
+PS> Invoke-FtpDownload -SourceUri ftp://127.0.0.1:21/test.txt -Destination C:\Temp\test.txt
+# This example downloads test.txt and saves it in C:\Temp over an FTP passive connection without credentials
+
+PS> Invoke-FtpDownload -SourceUri ftp://127.0.0.1:21/test.txt -Destination C:\Temp\test.txt -UsePassive $True -KeepAlive $False -Credential (Get-Credential)
+# This example downloads test.txt and saves it in C:\Temp over an FTP passive connection with credentials
+
+PS> Invoke-FtpDownload -SourceUri ftp://127.0.0.1:21/test.txt -Destination C:\Temp\test.txt -UsePassive $True -KeepAlive $False -UseSSL $True -IgnoreCertificateValidation $True -Credential (Get-Credential)
+# This example downloads test.txt and saves it in C:\Temp over an FTPES passive connection with credentials that ignores certificate validation errors
+```
